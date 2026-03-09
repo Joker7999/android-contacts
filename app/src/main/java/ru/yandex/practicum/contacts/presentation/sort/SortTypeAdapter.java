@@ -23,8 +23,9 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.ViewHo
 
     private final AsyncListDiffer<SortTypeUI> differ = new AsyncListDiffer<>(
             new AdapterListUpdateCallback(this),
-            new AsyncDifferConfig.Builder<>(new ListDiffCallback()).build()
+            new AsyncDifferConfig.Builder<>(new BaseListDiffCallback<>()).build()
     );
+
 
     private final Consumer<SortTypeUI> clickListener;
 
@@ -86,25 +87,6 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.ViewHo
                 default:
                     throw new IllegalArgumentException("Not supported SortType");
             }
-        }
-    }
 
-    static class ListDiffCallback extends DiffUtil.ItemCallback<SortTypeUI> {
 
-        @Override
-        public boolean areItemsTheSame(@NonNull SortTypeUI oldItem, @NonNull SortTypeUI newItem) {
-            return oldItem.getSortType() == newItem.getSortType();
-        }
 
-        @Override
-        public boolean areContentsTheSame(@NonNull SortTypeUI oldItem, @NonNull SortTypeUI newItem) {
-            return oldItem.equals(newItem);
-        }
-
-        @Nullable
-        @Override
-        public Object getChangePayload(@NonNull SortTypeUI oldItem, @NonNull SortTypeUI newItem) {
-            return newItem;
-        }
-    }
-}

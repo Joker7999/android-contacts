@@ -26,8 +26,9 @@ public class FilterContactTypeAdapter extends RecyclerView.Adapter<FilterContact
 
     private final AsyncListDiffer<FilterContactTypeUi> differ = new AsyncListDiffer<>(
             new AdapterListUpdateCallback(this),
-            new AsyncDifferConfig.Builder<>(new ListDiffCallback()).build()
+            new AsyncDifferConfig.Builder<>(new BaseListDiffCallback<>()).build()
     );
+
 
     private final Consumer<FilterContactTypeUi> clickListener;
 
@@ -75,33 +76,11 @@ public class FilterContactTypeAdapter extends RecyclerView.Adapter<FilterContact
             final int sortResId = FilterContactTypeUtils.getStringRes(data.getContactType());
             binding.text.setText(sortResId);
             binding.selected.setChecked(data.isSelected());
-            if (data.getContactType() == FilterContactType.ALL){
+            if (data.getContactType() == FilterContactType.ALL) {
                 binding.logo.setVisibility(View.GONE);
             } else {
                 final ContactType contactType = FilterContactTypeUtils.toContactType(data.getContactType());
                 final int iconRes = ContactTypeUtils.getIconRes(contactType);
                 binding.logo.setVisibility(View.VISIBLE);
                 binding.logo.setImageResource(iconRes);
-            }
-        }
-    }
 
-    static class ListDiffCallback extends DiffUtil.ItemCallback<FilterContactTypeUi> {
-
-        @Override
-        public boolean areItemsTheSame(@NonNull FilterContactTypeUi oldItem, @NonNull FilterContactTypeUi newItem) {
-            return oldItem.getContactType() == newItem.getContactType();
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull FilterContactTypeUi oldItem, @NonNull FilterContactTypeUi newItem) {
-            return oldItem.equals(newItem);
-        }
-
-        @Nullable
-        @Override
-        public Object getChangePayload(@NonNull FilterContactTypeUi oldItem, @NonNull FilterContactTypeUi newItem) {
-            return newItem;
-        }
-    }
-}
