@@ -2,6 +2,7 @@ package ru.yandex.practicum.contacts.presentation.sort;
 
 import androidx.annotation.NonNull;
 
+import ru.yandex.practicum.contacts.presentation.base.ListDiffInterface;
 import ru.yandex.practicum.contacts.presentation.sort.model.SortType;
 
 public class SortTypeUI implements ListDiffInterface<SortTypeUI> {
@@ -42,7 +43,7 @@ public class SortTypeUI implements ListDiffInterface<SortTypeUI> {
 
     @Override
     public boolean theSameAs(SortTypeUI other) {
-        // Логика сравнения объектов
+
         if (other == null) {
             return false;
         }
