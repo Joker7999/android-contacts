@@ -3,8 +3,12 @@ package ru.yandex.practicum.contacts.presentation.main;
 import androidx.annotation.NonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import ru.yandex.practicum.contacts.model.ContactType;
+import ru.yandex.practicum.contacts.presentation.base.ListDiffInterface;
+
+
 
 public class ContactUi implements ListDiffInterface<ContactUi> {
 
@@ -25,7 +29,22 @@ public class ContactUi implements ListDiffInterface<ContactUi> {
         this.types = types;
     }
 
-
+    @NonNull
+    public String getName() {
+        return name;
+    }
+    @NonNull
+    public  String getPhone() {
+        return phone;
+    }
+    @NonNull
+    public String getPhoto() {
+        return photo;
+    }
+    @NonNull
+    public List<ContactType> getTypes() {
+        return types;
+    }
 
     @Override
     public boolean equals(Object o) {

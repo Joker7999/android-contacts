@@ -21,12 +21,14 @@ import ru.yandex.practicum.contacts.presentation.filter.model.FilterContactType;
 import ru.yandex.practicum.contacts.presentation.filter.model.FilterContactTypeUi;
 import ru.yandex.practicum.contacts.utils.model.ContactTypeUtils;
 import ru.yandex.practicum.contacts.utils.model.FilterContactTypeUtils;
-
+import ru.yandex.practicum.contacts.presentation.base.BaseListDiffCallback;
 public class FilterContactTypeAdapter extends RecyclerView.Adapter<FilterContactTypeAdapter.ViewHolder> {
 
     private final AsyncListDiffer<FilterContactTypeUi> differ = new AsyncListDiffer<>(
             new AdapterListUpdateCallback(this),
-            new AsyncDifferConfig.Builder<>(new BaseListDiffCallback<>()).build()
+            new AsyncDifferConfig.Builder<FilterContactTypeUi>(
+            new BaseListDiffCallback<FilterContactTypeUi>()).build()
+
     );
 
 
@@ -83,4 +85,7 @@ public class FilterContactTypeAdapter extends RecyclerView.Adapter<FilterContact
                 final int iconRes = ContactTypeUtils.getIconRes(contactType);
                 binding.logo.setVisibility(View.VISIBLE);
                 binding.logo.setImageResource(iconRes);
-
+            }
+        }
+    }
+}
