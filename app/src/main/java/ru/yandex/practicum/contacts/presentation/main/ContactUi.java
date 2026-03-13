@@ -3,10 +3,14 @@ package ru.yandex.practicum.contacts.presentation.main;
 import androidx.annotation.NonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import ru.yandex.practicum.contacts.model.ContactType;
+import ru.yandex.practicum.contacts.presentation.base.ListDiffInterface;
 
-public class ContactUi {
+
+
+public class ContactUi implements ListDiffInterface<ContactUi> {
 
     private final String name;
     private final String phone;
@@ -25,18 +29,19 @@ public class ContactUi {
         this.types = types;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
-
-    public String getPhone() {
+    @NonNull
+    public  String getPhone() {
         return phone;
     }
-
+    @NonNull
     public String getPhoto() {
         return photo;
     }
-
+    @NonNull
     public List<ContactType> getTypes() {
         return types;
     }
@@ -44,22 +49,27 @@ public class ContactUi {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ContactUi contact = (ContactUi) o;
-
-        if (!name.equals(contact.name)) return false;
-        if (!phone.equals(contact.phone)) return false;
-        if (!photo.equals(contact.photo)) return false;
-        return types.equals(contact.types);
+        if (!(o instanceof ContactUi)) return false;
+        ContactUi other = (ContactUi) o;
+        return name.equals(other.name) &&
+                phone.equals(other.phone) &&
+                photo.equals(other.photo) &&
+                types.equals(other.types);
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + phone.hashCode();
-        result = 31 * result + photo.hashCode();
-        result = 31 * result + types.hashCode();
-        return result;
+        return Objects.hash(name, phone, photo, types);
+    }
+
+    @Override
+    public boolean theSameAs(ContactUi other) {
+        if (other == null) {
+            return false;
+        }
+        return this.name.equals(other.name) &&
+                this.phone.equals(other.phone) &&
+                this.photo.equals(other.photo) &&
+                this.types.equals(other.types);
     }
 }
